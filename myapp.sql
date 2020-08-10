@@ -20,13 +20,13 @@ insert into comments (post_id, body) values (1, 'second comment for post 1');
 insert into comments (post_id, body) values (3, 'first comment for post 3');
 insert into comments (post_id, body) values (4, 'first comment for post 4');
 
--- inner join
 -- outer join
 
--- select * from posts inner join comments on posts.id = comments.post_id;
--- # inner は省略できる
--- select * from posts join comments on posts.id = comments.post_id;
-# 特定のフィールドのみ取得する
--- select posts.id, posts.title, posts.body, comments.body from posts join comments on posts.id = comments.post_id;
-# フィールド名は自身のテーブルなら省略できる
-select posts.id, title, posts.body, comments.body from posts join comments on posts.id = comments.post_id;
+-- select * from posts left outer join comments on posts.id = comments.post_id;
+-- select * from posts right outer join comments on posts.id = comments.post_id;
+
+# outer は省略できる
+-- # 左 posts が軸 すべての posts のレコードを取得する なければ null
+-- select * from posts left join comments on posts.id = comments.post_id;
+# 右 comments が軸 関連データ(id, title, body) が posts にあれば 取得 comments になければ null
+select * from posts right join comments on posts.id = comments.post_id;
