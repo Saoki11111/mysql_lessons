@@ -11,22 +11,15 @@ create table comments (
   body text
 );
 
-# 結合時の不要なデータが入り込まないように外部キー制約を定義する
-# comments テーブルに対して外部キー制約を設定する -> alter table
-# 制約の名前 -> add constraint fk_comments
-# comments の post_id は posts テーブルに値があるものだけしか insert できない
-# 紐付けるカラムの型を一致させる comments -> int unsigned
-
-alter table comments add constraint fk_comments foreign key (post_id) references posts (id);
+# 2番目を削除
+delete from posts where id = 2;
+insert into posts (title, body) values ('new title', 'new body');
+# post を削除したあと新しく記事を追加したとき id は連番で設定される なくなった 2になるのか ４になるのか
+insert into comments (post_id, body) values (last_insert_id(), 'first comment fore new post');
 
 insert into posts (title, body) values ('title 1', 'body 1');
 insert into posts (title, body) values ('title 2', 'body 2');
 insert into posts (title, body) values ('title 3', 'body 3');
-
-insert into comments (post_id, body) values (1, 'first comment for post 1');
-insert into comments (post_id, body) values (1, 'second comment for post 1');
-insert into comments (post_id, body) values (3, 'first comment for post 3');
-insert into comments (post_id, body) values (4, 'first comment for post 4');
 
 select * from posts;
 select * from comments;
