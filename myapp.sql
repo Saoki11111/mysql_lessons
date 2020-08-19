@@ -1,25 +1,25 @@
-drop table if exists posts;
-create table posts (
+drop table if exists users;
+create table users (
   id int unsigned primary key auto_increment,
-  title varchar(255),
-  body text
-);
-drop table if exists comments;
-create table comments (
-  id int unsigned primary key auto_increment,
-  post_id int unsigned not null,
-  body text
+  name varchar(20),
+  score float
 );
 
-# 2番目を削除
-delete from posts where id = 2;
-insert into posts (title, body) values ('new title', 'new body');
-# post を削除したあと新しく記事を追加したとき id は連番で設定される なくなった 2になるのか ４になるのか
-insert into comments (post_id, body) values (last_insert_id(), 'first comment fore new post');
+insert into users (name, score) values ('taguchi', 5.8);
+insert into users (name, score) values ('fkoji', 8.2);
+insert into users (name, score) values ('dotinstall', 6.1);
+insert into users (name, score) values ('Tanaka', 4.2);
+insert into users (name, score) values ('yamada', null);
+insert into users (name, score) values ('tashiro', 7.9);
 
-insert into posts (title, body) values ('title 1', 'body 1');
-insert into posts (title, body) values ('title 2', 'body 2');
-insert into posts (title, body) values ('title 3', 'body 3');
-
-select * from posts;
-select * from comments;
+-- select * from users;
+-- select id, name from users;
+-- < > <= >= = <> !=
+-- is null, is not null
+-- and or not
+-- select * from users where score >= 6.0;
+-- select * from users where score >= 3.0 and score <= 6.0;
+-- select * from users where score between 3.0 and 6.0;
+select * from users where name = 'taguchi' or name = 'fkoji';
+-- または
+select * from users where name in ('taguchi', 'fkoji');
